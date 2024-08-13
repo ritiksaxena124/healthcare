@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { UserFormValidation } from "@/lib/validation";
 import { useState } from "react";
+import { createUser } from "@/lib/actions/patient.actions";
+import { useRouter } from "next/navigation";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -21,6 +23,7 @@ export enum FormFieldType {
 }
 
 function PatientForm() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   // 1. Define your form.
@@ -34,10 +37,23 @@ function PatientForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof UserFormValidation>) {
+  async function onSubmit({
+    name,
+    email,
+    phone,
+  }: z.infer<typeof UserFormValidation>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    setIsLoading(true);
+    try {
+      const userData = { name, email, phone };
+      const user = await createUser(userData);
+      console.log(user);
+      setIsLoading(false);
+      router.push(`/patient/${user.$id}/register`);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
