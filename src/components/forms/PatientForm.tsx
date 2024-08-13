@@ -27,7 +27,7 @@ function PatientForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   // 1. Define your form.
-  const form = useForm<z.infer<typeof UserFormValidation>>({
+  const form = useForm<CreateUserParams>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
       name: "",
@@ -37,11 +37,7 @@ function PatientForm() {
   });
 
   // 2. Define a submit handler.
-  async function onSubmit({
-    name,
-    email,
-    phone,
-  }: z.infer<typeof UserFormValidation>) {
+  async function onSubmit({ name, email, phone }: CreateUserParams) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     setIsLoading(true);

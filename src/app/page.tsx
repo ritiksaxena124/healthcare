@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="flex h-screen max-h-screen">
-      <section className="remove-scrollbar container my-auto">
+      <section className="remove-scrollbar container">
         <div className="sub-container max-w-[496px]">
           <Image
             src="/assets/icons/logo-full.svg"
@@ -21,7 +21,7 @@ export default function Home() {
 
           <PatientForm />
 
-          <div className="flex justify-between mt-12 text-dark-600 text-sm">
+          <div className="flex justify-between py-12 text-dark-600 text-14-regular">
             <p className="justify-items-end">© 2024 CarePulse</p>
             <a href="">Admin</a>
           </div>
