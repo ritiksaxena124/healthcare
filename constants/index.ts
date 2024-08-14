@@ -1,8 +1,7 @@
 export const GenderOptions = ["Male", "Female", "Other"];
 
 export const PatientFormDefaultValues = {
-  firstName: "",
-  lastName: "",
+  name: "",
   email: "",
   phone: "",
   birthDate: new Date(Date.now()),
@@ -12,18 +11,18 @@ export const PatientFormDefaultValues = {
   emergencyContactName: "",
   emergencyContactNumber: "",
   primaryPhysician: "",
-  insuranceProvider: "",
-  insurancePolicyNumber: "",
   allergies: "",
   currentMedication: "",
   familyMedicalHistory: "",
   pastMedicalHistory: "",
-  identificationType: "Birth Certificate",
+  insuranceProvider: "",
+  insurancePolicyNumber: "",
+  identificationType: "",
   identificationNumber: "",
-  identificationDocument: [],
-  treatmentConsent: false,
-  disclosureConsent: false,
-  privacyConsent: false,
+  // identificationDocument: [],
+  // treatmentConsent: false,
+  // disclosureConsent: false,
+  // privacyConsent: false,
 };
 
 export const IdentificationTypes = [

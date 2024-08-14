@@ -8,8 +8,8 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { PatientFormValidation } from "@/lib/validation";
 import { useState } from "react";
-import { createUser } from "@/lib/actions/patient.actions";
-import { useRouter } from "next/navigation";
+import { registerPatient } from "@/lib/actions/patient.actions";
+import { useParams, useRouter } from "next/navigation";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import {
   Doctors,
@@ -33,6 +33,7 @@ export enum FormFieldType {
 }
 
 function RegisterForm() {
+  const params = useParams();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,16 +49,18 @@ function RegisterForm() {
   });
 
   // 2. Define a submit handler.
-  async function onSubmit({ name, email, phone }: RegisterUserParams) {
+  async function onSubmit(values: RegisterUserParams) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     setIsLoading(true);
     try {
-      const userData = { name, email, phone };
-      const user = await createUser(userData);
-      console.log(user);
+      const patient = await registerPatient(values);
+      if (patient === undefined) {
+        console.log("Error creating patient");
+      } else {
+        console.log(patient);
+      }
       setIsLoading(false);
-      router.push(`/patient/${user.$id}/register`);
     } catch (error) {
       console.log(error);
     }
@@ -279,6 +282,14 @@ function RegisterForm() {
               </SelectItem>
             ))}
           </CustomFormField>
+
+          <CustomFormField
+            control={form.control}
+            fieldType={FormFieldType.INPUT}
+            name="identificationNumber"
+            label="Identification number"
+            placeholder="123456789"
+          />
 
           <CustomFormField
             control={form.control}
