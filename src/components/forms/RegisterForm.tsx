@@ -21,19 +21,10 @@ import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../FileUploader";
-
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  DATE_PICKER = "datePicker",
-  SELECT = "select",
-  SKELETON = "skeleton",
-}
+import { FormFieldType } from "./PatientForm";
 
 function RegisterForm() {
-  const params = useParams();
+  const params = useParams<{userId: string}>();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -59,6 +50,7 @@ function RegisterForm() {
         console.log("Error creating patient");
       } else {
         console.log(patient);
+        router.push(`/patient/${params.userId}/new-appointment`)
       }
       setIsLoading(false);
     } catch (error) {
